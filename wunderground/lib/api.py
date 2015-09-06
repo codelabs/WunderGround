@@ -12,11 +12,11 @@ class WunderGround(object):
 
         self.key     = data["key"]
         self.keyfile = keyfile
-        self.url     = "http://api.wunderground.com/api/" + self.key + "/geolookup/conditions/q"
+        self.url     = "http://api.wunderground.com/api/" + self.key
 
-    def by_zipcode(self, zipcode):
+    def get_conditions_by_zipcode(self, zipcode):
 
-        url     = self.url + "/" + str(zipcode) + ".json"
+        url     = self.url + "/geolookup/conditions/q/" + str(zipcode) + ".json"
         headers = {
             "Host"         : "api.wunderground.com",
             "X-Target-URI" : "http://api.wunderground.com",
@@ -29,5 +29,14 @@ class WunderGround(object):
             return None
 
         content  = response.json()
-        return content
+        return {
+            "city"              : content["location"]["city"],
+            "state"             : content["location"]["state"],
+            "latitude"          : content["location"]["lat"],
+            "longitude"         : content["location"]["lon"],
+            "elevation"         : content["display_location"]["elevation"],
+            "temp_f"            : content["temp_f"],
+            "temp_c"            : content["temp_c"],
+            "observation_epoch" : content["observation_epoch"],
+        }
 
