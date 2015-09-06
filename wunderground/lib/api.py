@@ -4,13 +4,15 @@ import json
 
 class WunderGround(object):
 
+    'API to get weather information from Wundeground public webservices'
+
     def __init__(self, keyfile='/tmp/keyfile.yml'):
 
-        kf   = open(keyfile, 'r')
-        data = yaml.safe_load(kf)
-        kf.close();
+        __kf   = open(keyfile, 'r')
+        __data = yaml.safe_load(__kf)
+        __kf.close();
 
-        self.key     = data["key"]
+        self.key     = __data["key"]
         self.keyfile = keyfile
         self.url     = "http://api.wunderground.com/api/" + self.key
 
