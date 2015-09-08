@@ -4,7 +4,12 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
-install: "pip install -r requirements.txt"
+install:
+    - pip install -r requirements.txt
+    - pip install coveralls
 script:
     - cp tests/keyfile.yml /tmp/keyfile.yml
-    - nosetests -v tests/test_api.py
+    - coverage run --source=lib setup.py test
+    #- nosetests -v tests/test_api.py
+after_success:
+    - coveralls
