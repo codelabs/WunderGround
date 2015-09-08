@@ -8,7 +8,6 @@ install:
     - pip install -r requirements.txt
     - pip install coveralls
 script:
-    - cp tests/keyfile.yml /tmp/keyfile.yml
     - coverage run --source=lib setup.py test
     #- nosetests -v tests/test_api.py
 after_success:

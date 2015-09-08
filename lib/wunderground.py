@@ -1,20 +1,12 @@
-import yaml
-import requests
-import json
+import json, requests, logging
 
 class WunderGround(object):
 
     'API to get weather information from Wundeground public webservices'
 
-    def __init__(self, keyfile='/tmp/keyfile.yml'):
-
-        __kf   = open(keyfile, 'r')
-        __data = yaml.safe_load(__kf)
-        __kf.close();
-
-        self.key     = __data["key"]
-        self.keyfile = keyfile
-        self.url     = "http://api.wunderground.com/api/" + self.key
+    def __init__(self, apikey):
+        self.__apikey = apikey
+        self.url      = "http://api.wunderground.com/api/" + self.__apikey
 
     def get_conditions_by_zipcode(self, zipcode):
 

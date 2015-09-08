@@ -4,23 +4,23 @@ import requests_mock
 
 sys.path.append(os.path.abspath(sys.path[0]) + '/../')
 
-from lib import api
+from lib import wunderground
 
 
 class TestWunderGround( unittest.TestCase ):
 
     def test_init(self):
 
-        wg = api.WunderGround()
+        wg = wunderground.WunderGround("abcfsssd")
 
-        self.assertEqual(wg.keyfile, "/tmp/keyfile.yml")
-        self.assertEqual(wg.key, 'abcfsssd')
+        self.assertEqual(wunderground.WunderGround.__doc__, 'API to get weather information from Wundeground public webservices')
+
         self.assertEqual(wg.url, "http://api.wunderground.com/api/abcfsssd")
 
     @requests_mock.mock()
     def test_get_conditions_by_zipcode(self, m):
 
-        weather  = api.WunderGround()
+        weather  = wunderground.WunderGround("abcfsssd")
         response = {
             "95035" : {
                 "location" : {
