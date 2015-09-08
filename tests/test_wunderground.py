@@ -38,23 +38,12 @@ class TestWunderGround( unittest.TestCase ):
             }
         }
 
-        expected = {
-            "city"              : "SomeCity",
-            "state"             : "CA",
-            "latitude"          : "37.76834106",
-            "longitude"         : "-122.39418793",
-            "elevation"         : "5",
-            "temp_f"            : "83.5",
-            "temp_c"            : "22.5",
-            "observation_epoch" : "1441575478"
-        }
-
         zip = "95035"
         
         # Mocking request.get
         m.get(weather.url + '/geolookup/conditions/q/' + str(zip) + '.json', json = response[zip], status_code = 200)
         # Test
-        self.assertDictEqual(weather.get_conditions_by_zipcode(zip), expected, "Valid Response")
+        self.assertDictEqual(weather.get_conditions_by_zipcode(zip), response[zip], "Valid Response")
 
         zip = 11
         # Mocking request.get

@@ -1,14 +1,35 @@
 import json, requests, logging
 
-class WunderGround(object):
+class WunderGround():
 
     'API to get weather information from Wundeground public webservices'
 
     def __init__(self, apikey):
+        """
+        Constructor
+
+        :param apikey: String - Wunderground's API key.
+        :returns: instance
+        """
         self.__apikey = apikey
         self.url      = "http://api.wunderground.com/api/" + self.__apikey
 
+    def __request(self, url, headers, timeout):
+
+        response = requests.get(url,headers = headers, timeout = timeout)
+        logging.info( "url=" + url + " status_code=" + str(response.status_code) )
+
+        if response.status_code != requests.codes.ok: return None
+        return response.json()
+
+
     def get_conditions_by_zipcode(self, zipcode):
+        """
+        Returns current conditions with geo lookup info for given zipcode
+
+        :param zipcode: Number - Condtions for selected zipcode
+        :returns: dictionary with all weather and geo data
+        """
 
         url     = self.url + "/geolookup/conditions/q/" + str(zipcode) + ".json"
         headers = {
@@ -17,20 +38,6 @@ class WunderGround(object):
             "Connection"   : "Keep-Alive"
         }
 
-        response = requests.get(url, headers=headers, timeout=5)
-
-        if response.status_code != requests.codes.ok:
-            return None
-
-        content  = response.json()
-        return {
-            "city"              : content["location"]["city"],
-            "state"             : content["location"]["state"],
-            "latitude"          : content["location"]["lat"],
-            "longitude"         : content["location"]["lon"],
-            "elevation"         : content["display_location"]["elevation"],
-            "temp_f"            : content["temp_f"],
-            "temp_c"            : content["temp_c"],
-            "observation_epoch" : content["observation_epoch"],
-        }
+        result = self.__request(url, headers, 5)
+        return result
 
