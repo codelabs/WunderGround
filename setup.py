@@ -29,7 +29,7 @@ setup(
 
     install_requires = [
         'requests>=2.6.0',
-        'logging>=0.4.9.6',
+        'logging>=0.4.9.6'
     ],
     package_data     = {
         '' : ['*.md']
