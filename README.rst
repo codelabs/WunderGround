@@ -1,4 +1,4 @@
-:WunderGround API |build_status| |coverage_status|
+:WunderGround API: |build_status| |coverage_status|
 
 Python API to get weather data from Wunderground public web services
 
