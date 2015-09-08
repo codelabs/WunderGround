@@ -27,10 +27,7 @@ setup(
     license   = "LGPLv3",
     platforms = ['OS Independent'],
 
-    install_requires = [
-        'requests>=2.6.0',
-        'logging>=0.4.9.6'
-    ],
+    install_requires = ['requests>=2.6.0'],
     package_data     = {
         '' : ['*.md']
     },
