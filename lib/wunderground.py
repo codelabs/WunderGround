@@ -41,3 +41,25 @@ class WunderGround():
         result = self.__request(url, headers, 5)
         return result
 
+    def get_conditions_by_city(self, city, state):
+        """
+        Returns current conditions with given city state/country
+
+        :param city: String - City name
+        :param state: String - state code for US states, country name for non US states
+        :returns: dictionary with all weather data
+        """
+
+        # Replace all spaces in city with underscores
+        city = city.replace(" ", "_")
+        url  = self.url + "/conditions/q/" + state + "/" + city + ".json"
+        headers = {
+            "Host"         : "api.wunderground.com",
+            "X-Target-URI" : "http://api.wunderground.com",
+            "Connection"   : "Keep-Alive"
+        }
+
+        result = self.__request(url, headers, 5)
+        return result
+
+
